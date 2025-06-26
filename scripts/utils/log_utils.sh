@@ -18,11 +18,6 @@
 # https://github.com/salvogiangri/UN1CA/blob/9709f2557a63a27530ca6b2b0e7f9d007233a063/scripts/utils/log_utils.sh#L43-L104
 
 # [
-export HOME="$(echo ~)"
-# export SRC_DIR="$(pwd)"
-# Get SRC_DIR even if the script is not sourced from the root directory
-export SRC_DIR="$(git rev-parse --show-toplevel)"
-
 _SET_INDENT()
 {
     local INDENT="${INDENT_LEVEL:=0}"
