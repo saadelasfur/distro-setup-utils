@@ -18,6 +18,20 @@
 # [
 source "$SRC_DIR/scripts/utils/common_utils.sh"
 
+# _IS_PROOT
+# Detects if running inside a termux-proot environment (e.g., Termux with chroot-like setup).
+_IS_PROOT()
+{
+    local SHELL="$(realpath "$(command -v bash)")"
+    local TERMUX_HOME="/data/data/com.termux/files/home"
+
+    if [[ -d "$TERMUX_HOME" ]] && [[ "$SHELL" != *"termux"* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # _IS_TERMUX
 # Detects if the script is running directly inside the Termux terminal emulator.
 _IS_TERMUX()
@@ -71,7 +85,9 @@ GET_OS()
 {
     case "$(uname -s)" in
         "Linux"*)
-            if _IS_TERMUX; then
+            if _IS_PROOT; then
+                echo "termux-proot"
+            elif _IS_TERMUX; then
                 echo "termux"
             elif _IS_UBUNTU; then
                 echo "ubuntu"
@@ -91,7 +107,7 @@ GET_OS()
 GET_PKG_MANAGER()
 {
     case "$(GET_OS)" in
-        ubuntu)
+        termux-proot|ubuntu)
             echo "apt"
             ;;
         termux)
@@ -139,7 +155,7 @@ IS_PKG_INSTALLED()
 UPDATE_PACKAGES()
 {
     case "$(GET_OS)" in
-        ubuntu)
+        termux-proot|ubuntu)
             sudo apt update && sudo apt full-upgrade -y
             ;;
         termux)
