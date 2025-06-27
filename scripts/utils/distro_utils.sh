@@ -18,6 +18,20 @@
 # [
 source "$SRC_DIR/scripts/utils/common_utils.sh"
 
+# _IS_TERMUX
+# Detects if the script is running directly inside the Termux terminal emulator.
+_IS_TERMUX()
+{
+    local SHELL="$(realpath "$(command -v bash)")"
+    local TERMUX_HOME="/data/data/com.termux/files/home"
+
+    if [[ -d "$TERMUX_HOME" ]] && [[ "$SHELL" == *"termux"* ]]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # _IS_UBUNTU
 # Checks if the operating system is Ubuntu.
 _IS_UBUNTU()
@@ -57,7 +71,9 @@ GET_OS()
 {
     case "$(uname -s)" in
         "Linux"*)
-            if _IS_UBUNTU; then
+            if _IS_TERMUX; then
+                echo "termux"
+            elif _IS_UBUNTU; then
                 echo "ubuntu"
             else
                 echo "unknown"
@@ -78,6 +94,9 @@ GET_PKG_MANAGER()
         ubuntu)
             echo "apt"
             ;;
+        termux)
+            echo "pkg"
+            ;;
     esac
 }
 
@@ -90,6 +109,9 @@ INSTALL_PKG()
     case "$(GET_PKG_MANAGER)" in
         apt)
             sudo apt install -y "$PKG"
+            ;;
+        termux)
+            pkg install -y "$PKG"
             ;;
     esac
 }
@@ -105,6 +127,10 @@ IS_PKG_INSTALLED()
             dpkg -s "$PKG" &> /dev/null
             return $?
             ;;
+        pkg)
+            pkg info "$PKG" &> /dev/null
+            return $?
+            ;;
     esac
 }
 
@@ -115,6 +141,9 @@ UPDATE_PACKAGES()
     case "$(GET_OS)" in
         ubuntu)
             sudo apt update && sudo apt full-upgrade -y
+            ;;
+        termux)
+            pkg update && pkg upgrade -y
             ;;
     esac
 }
