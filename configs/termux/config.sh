@@ -19,3 +19,4 @@
 BINPATH="/data/data/com.termux/files/usr/bin"
 DISTRO="termux"
 SUDO=""
+CUSTOM_SETUP=true

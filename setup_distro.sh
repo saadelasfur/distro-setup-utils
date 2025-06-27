@@ -71,3 +71,15 @@ for p in "${MISSING[@]}"; do
     fi
 done
 LOG_STEP_OUT
+
+# Setup distro
+if $CUSTOM_SETUP; then
+    LOG_STEP_IN true "Set up distro-specific settings"
+
+    if [[ -f "$SRC_DIR/scripts/distro/setup_$(GET_OS).sh" ]]; then
+        . "$SRC_DIR/scripts/distro/setup_$(GET_OS).sh"
+    else
+        LOGW "No distro-specific setup found. Skipping..."
+    fi
+    LOG_STEP_OUT
+fi

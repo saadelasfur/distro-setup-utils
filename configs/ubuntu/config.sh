@@ -19,3 +19,4 @@
 BINPATH="/usr/bin"
 DISTRO="ubuntu"
 SUDO="sudo"
+CUSTOM_SETUP=false
