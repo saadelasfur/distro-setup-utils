@@ -17,3 +17,4 @@
 
 # Setup configuration file
 AVBTOOL=true
+MAGISKBOOT=true

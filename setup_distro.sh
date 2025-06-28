@@ -88,3 +88,8 @@ fi
 if $AVBTOOL; then
     . "$SRC_DIR/scripts/tools/setup_avbtool.sh"
 fi
+
+# Setup magiskboot
+if $MAGISKBOOT; then
+    . "$SRC_DIR/scripts/tools/setup_magiskboot.sh"
+fi
