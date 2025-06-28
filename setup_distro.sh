@@ -93,3 +93,8 @@ fi
 if $MAGISKBOOT; then
     . "$SRC_DIR/scripts/tools/setup_magiskboot.sh"
 fi
+
+# Setup samfirm
+if $SAMFIRM; then
+    . "$SRC_DIR/scripts/tools/setup_samfirm.sh"
+fi
