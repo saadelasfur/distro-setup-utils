@@ -84,6 +84,11 @@ if $CUSTOM_SETUP; then
     LOG_STEP_OUT
 fi
 
+# Setup gitconfig
+if $GITCONFIG; then
+    . "$SRC_DIR/scripts/tools/setup_gitconfig.sh"
+fi
+
 # Setup avbtool
 if $AVBTOOL; then
     . "$SRC_DIR/scripts/tools/setup_avbtool.sh"
