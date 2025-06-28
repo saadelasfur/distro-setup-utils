@@ -83,3 +83,8 @@ if $CUSTOM_SETUP; then
     fi
     LOG_STEP_OUT
 fi
+
+# Setup avbtool
+if $AVBTOOL; then
+    . "$SRC_DIR/scripts/tools/setup_avbtool.sh"
+fi
