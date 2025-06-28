@@ -98,3 +98,8 @@ fi
 if $SAMFIRM; then
     . "$SRC_DIR/scripts/tools/setup_samfirm.sh"
 fi
+
+# Setup prebuilt android tools
+if $PREBUILT_TOOLS; then
+    . "$SRC_DIR/scripts/tools/setup_android_tools.sh"
+fi
