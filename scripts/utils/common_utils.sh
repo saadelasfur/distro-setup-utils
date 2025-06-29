@@ -79,6 +79,16 @@ GET_GITHUB_RELEASE_URL()
     echo "$URL"
 }
 
+# PRINT_USAGE
+# Displays usage instructions and available command-line options for the script.
+PRINT_USAGE()
+{
+    echo "Usage: source setup_distro.sh [OPTIONS]" >&2
+    echo "" >&2
+    echo "Options:" >&2
+    echo "  -f, --force    Force the setup to run even if it was completed before." >&2
+}
+
 # VERIFY_NETWORK
 # Checks for an active internet connection; exits if no connection is found.
 VERIFY_NETWORK()
