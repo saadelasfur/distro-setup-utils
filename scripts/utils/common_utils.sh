@@ -33,6 +33,19 @@ ASK_SUDO()
     fi
 }
 
+# ASK_USER <prompt>
+# Prompts the user for a yes/no response and returns true if the answer is affirmative.
+ASK_USER()
+{
+    local PROMPT="! $1 [y/n] "
+    local ANSWER=""
+
+    _SET_INDENT
+    read -rp "$PROMPT" ANSWER
+
+    [[ "$ANSWER" =~ ^[Yy]$ ]]
+}
+
 # CHECK_EXEC <executable>
 # Verifies that a given executable is available in the system PATH.
 CHECK_EXEC()

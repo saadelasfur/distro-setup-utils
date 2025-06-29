@@ -16,7 +16,7 @@
 #
 
 # Setup configuration file
-GITCONFIG=false
+GITCONFIG=true
 AVBTOOL=true
 MAGISKBOOT=true
 SAMFIRM=true
