@@ -41,15 +41,15 @@ PREPARE_SETUP()
 
 set -e
 
-VERIFY_ROOT
 PREPARE_SETUP
 unset -f PREPARE_SETUP
+
+CHECK_SETUP "$@"
 
 # Setup packages
 LOG_STEP_IN true "Updating and installing packages"
 
 [[ -n "$SUDO" ]] && ASK_SUDO
-VERIFY_NETWORK
 if UPDATE_PACKAGES &> /dev/null; then
     LOG "- Packages updated successfully"
 else

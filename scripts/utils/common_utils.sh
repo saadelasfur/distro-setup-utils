@@ -64,6 +64,37 @@ CHECK_EXEC()
     LOG_STEP_OUT
 }
 
+# CHECK_SETUP [-f|--force]
+# Checks if the setup has already been completed; allows re-running with force flag.
+CHECK_SETUP()
+{
+    local SETUP_FILE="$HOME/.setup_completed"
+
+    if [[ "$#" -gt 1 ]]; then
+        PRINT_USAGE
+        exit 1
+    fi
+
+    FORCE=false
+    if [[ "$1" == "-f" || "$1" == "--force" ]]; then
+        FORCE=true
+    elif [[ -n "$1" ]]; then
+        LOGW "Unknown option: $1"
+        PRINT_USAGE
+        exit 1
+    fi
+
+    if [[ -f "$SETUP_FILE" && "$FORCE" != "true" ]]; then
+        LOGW "Setup has already been completed."
+        LOGW "Run with -f or --force to redo."
+        exit 0
+    fi
+
+    VERIFY_ROOT
+    VERIFY_NETWORK
+    touch "$SETUP_FILE"
+}
+
 # GET_GITHUB_RELEASE_URL <repo> <filename>
 # Fetches the latest release URL for a specific file from a GitHub repository.
 GET_GITHUB_RELEASE_URL()
