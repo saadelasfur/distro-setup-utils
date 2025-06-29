@@ -114,7 +114,7 @@ GET_GITHUB_RELEASE_URL()
 # Displays usage instructions and available command-line options for the script.
 PRINT_USAGE()
 {
-    echo "Usage: source setup_distro.sh [OPTIONS]" >&2
+    echo "Usage: bash setup_distro.sh [OPTIONS]" >&2
     echo "" >&2
     echo "Options:" >&2
     echo "  -f, --force    Force the setup to run even if it was completed before." >&2
