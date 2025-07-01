@@ -4,8 +4,7 @@ FILE="$(basename "$URL")"
 LOG_STEP_IN true "Set up avbtool"
 
 cd "$HOME"
-LOG "- Downloading $FILE"
-curl -L -s -o "$FILE" "$URL"
+DOWNLOAD_FILE "$FILE" "$URL"
 
 LOG "- Extracting avbtool.py"
 tar --strip-components=3 -xf "$FILE" "$(tar -tf "$FILE" | grep "avbtool.py")"

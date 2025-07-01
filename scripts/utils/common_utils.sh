@@ -95,6 +95,17 @@ CHECK_SETUP()
     touch "$SETUP_FILE"
 }
 
+# DOWNLOAD_FILE <file> <url>
+# Downloads a file from the given URL and saves it with the specified name.
+DOWNLOAD_FILE()
+{
+    local FILE="$1"
+    local URL="$2"
+
+    LOG "- Downloading $FILE"
+    curl -L -s -o "$FILE" "$URL"
+}
+
 # GET_GITHUB_RELEASE_URL <repo> <filename>
 # Fetches the latest release URL for a specific file from a GitHub repository.
 GET_GITHUB_RELEASE_URL()

@@ -4,8 +4,7 @@ FILE="$(basename "$URL")"
 LOG_STEP_IN true "Set up magiskboot"
 
 cd "$HOME"
-LOG "- Downloading $FILE"
-curl -L -s -o "$FILE" "$URL"
+DOWNLOAD_FILE "$FILE" "$URL"
 
 LOG "- Extracting libmagiskboot.so"
 unzip -q -j "$FILE" "lib/$(GET_ARCH)/libmagiskboot.so"

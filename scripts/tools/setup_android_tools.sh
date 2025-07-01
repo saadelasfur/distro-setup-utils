@@ -7,8 +7,7 @@ LOG_STEP_IN true "Set up android tools"
 
 [[ -d "$TOOLS_DIR" ]] && rm -rf "$TOOLS_DIR"
 cd "$HOME"
-LOG "- Downloading $FILE"
-curl -L -s -o "$FILE" "$URL"
+DOWNLOAD_FILE "$FILE" "$URL"
 
 LOG "- Extracting tools"
 tar -xf "$HOME/$FILE" -C "$HOME"
