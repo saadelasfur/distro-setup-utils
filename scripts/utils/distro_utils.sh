@@ -107,11 +107,8 @@ GET_OS()
 GET_PKG_MANAGER()
 {
     case "$(GET_OS)" in
-        termux-proot|ubuntu)
+        termux-proot|termux|ubuntu)
             echo "apt"
-            ;;
-        termux)
-            echo "pkg"
             ;;
     esac
 }
@@ -124,10 +121,11 @@ INSTALL_PKG()
 
     case "$(GET_PKG_MANAGER)" in
         apt)
-            sudo apt install -y "$PKG"
-            ;;
-        termux)
-            pkg install -y "$PKG"
+            if _IS_TERMUX; then
+                apt install -y "$PKG"
+            else
+                sudo apt install -y "$PKG"
+            fi
             ;;
     esac
 }
@@ -143,10 +141,6 @@ IS_PKG_INSTALLED()
             dpkg -s "$PKG" &> /dev/null
             return $?
             ;;
-        pkg)
-            pkg info "$PKG" &> /dev/null
-            return $?
-            ;;
     esac
 }
 
@@ -155,11 +149,12 @@ IS_PKG_INSTALLED()
 UPDATE_PACKAGES()
 {
     case "$(GET_OS)" in
-        termux-proot|ubuntu)
-            sudo apt update && sudo apt full-upgrade -y
-            ;;
-        termux)
-            pkg update && pkg upgrade -y
+        termux-proot|termux|ubuntu)
+            if _IS_TERMUX; then
+                apt update && apt full-upgrade -y
+            else
+                sudo apt update && sudo apt full-upgrade -y
+            fi
             ;;
     esac
 }
