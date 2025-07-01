@@ -66,8 +66,8 @@ done
 for p in "${MISSING[@]}"; do
     LOG "- Installing $p"
     if ! (INSTALL_PKG "$p" && IS_PKG_INSTALLED "$p") &> /dev/null; then
-        LOGE "- Failed to install $p"
-        exit 1
+        LOGW "! Failed to install $p"
+        continue
     fi
 done
 LOG_STEP_OUT
