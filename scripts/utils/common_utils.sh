@@ -37,7 +37,7 @@ ASK_SUDO()
 # Prompts the user for a yes/no response and returns true if the answer is affirmative.
 ASK_USER()
 {
-    local PROMPT="! $1 [y/n] "
+    local PROMPT="- $1 [y/n] "
     local ANSWER=""
 
     _SET_INDENT

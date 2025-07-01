@@ -3,7 +3,7 @@ CONFIG_FILE="$HOME/.gitconfig"
 LOG_STEP_IN true "Set up gitconfig"
 
 if [[ -f "$CONFIG_FILE" ]]; then
-    LOGW "- Existing .gitconfig found"
+    LOGW "! Existing .gitconfig found"
     if ASK_USER "Overwrite existing config?"; then
         LOG "- Removing old .gitconfig file..."
         rm -f "$CONFIG_FILE"

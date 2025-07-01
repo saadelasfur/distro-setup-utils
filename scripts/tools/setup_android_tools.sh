@@ -14,8 +14,8 @@ tar -xf "$HOME/$FILE" -C "$HOME"
 rm -f "$HOME/$FILE"
 
 if [[ "$(GET_ARCH)" != "x86_64" ]]; then
-    LOGW "- Architecture is not \"x86_64\""
-    LOGW "- Removing unsupported tools..."
+    LOGW "! Architecture is not \"x86_64\""
+    LOGW "! Removing unsupported tools..."
 
     TOOLS_TO_DELETE=(
         "adb" "append2simg" "avbtool" "e2fsdroid" "samfirm" "venv"
