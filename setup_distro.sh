@@ -39,18 +39,16 @@ PREPARE_SETUP()
 }
 # ]
 
-set -e
-
 PREPARE_SETUP
 unset -f PREPARE_SETUP
 
 CHECK_SETUP "$@"
+[[ -n "$SUDO" ]] && ASK_SUDO
 
 # Setup packages
 LOG_STEP_IN true "Updating and installing packages"
 
-[[ -n "$SUDO" ]] && ASK_SUDO
-if UPDATE_PACKAGES &> /dev/null; then
+if UPDATE_PACKAGES; then
     LOG "- Packages updated successfully"
 else
     LOGE "- Failed to update packages"
@@ -65,7 +63,8 @@ for p in "${PACKAGES[@]}"; do
 done
 for p in "${MISSING[@]}"; do
     LOG "- Installing $p"
-    if ! (INSTALL_PKG "$p" && IS_PKG_INSTALLED "$p") &> /dev/null; then
+    INSTALL_PKG "$p" &> /dev/null
+    if ! IS_PKG_INSTALLED "$p"; then
         LOGW "! Failed to install $p"
         continue
     fi
