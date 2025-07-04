@@ -34,16 +34,27 @@ ASK_SUDO()
 }
 
 # ASK_USER <prompt>
-# Prompts the user for a yes/no response and returns true if the answer is affirmative.
+# Prompts the user for a yes/no response.
 ASK_USER()
 {
+    local ANSWER
     local PROMPT="- $1 [y/n] "
-    local ANSWER=""
 
-    _SET_INDENT
-    read -rp "$PROMPT" ANSWER
-
-    [[ "$ANSWER" =~ ^[Yy]$ ]]
+    while true; do
+        SET_INDENT
+        read -rp "$PROMPT" ANSWER
+        case "${ANSWER,,}" in
+            y|yes)
+                return 0
+                ;;
+            n|no)
+                return 1
+                ;;
+            *)
+                LOGW "! Please answer yes or no"
+                ;;
+        esac
+    done
 }
 
 # CHECK_EXEC <executable>
